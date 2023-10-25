@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.1
+    command: start-dev
+    env_file:
+      - .env
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=root
+      - DB_VENDOR=POSTGRES
+      - DB_ADDR=postgres
+      - DB_DATABASE=keycloak
+      - DB_SCHEMA=public
+      - DB_USER=keycloak
+      - DB_PASSWORD=postgres
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,address=*:8787,server=y,suspend=n
+    volumes:
+      - ./target/custom-event-listener-jar-with-dependencies.jar:/opt/keycloak/providers/custom-event-listener-jar-with-dependencies.jar
+      - ./themes:/opt/keycloak/themes
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+      - "8787:8787"
+
+
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432

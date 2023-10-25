@@ -1,0 +1,62 @@
+.login-pf {
+  background: none;
+  background-color: rgba(240, 242, 245, 1);
+}
+
+.login-pf body {
+  background: none;
+  height: 100%;
+}
+
+.login-pf-page {
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-pf-page-header {
+  display: none;
+}
+
+.card-pf {
+  width: 100%;
+  max-width: 480px;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.login-pf-page .login-pf-header h1 {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.pf-c-form__label-text {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.pf-c-form-control {
+  height: 40px !important;
+  border-radius: 2px;
+}
+
+.pf-c-button.pf-m-block {
+  height: 40px;
+  border-radius: 2px;
+}
+
+.pf-c-form__helper-text{
+  color: red;
+  margin-top: 1%;
+}
