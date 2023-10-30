@@ -47,7 +47,7 @@ public class CustomEventListenerProvider implements EventListenerProvider {
     private void processSuccessLoginEvent(Event event) {
         UserModel user = getUserModel(event);
         if (!UserUtils.getUserStatusFromAttributes(user.getAttributes()).equals(UserStatus.ACTIVE.name())) {
-            RestTemplateUtils.activateUser(UserUtils.getUserIdFromAttributes(user.getAttributes()));
+            RestTemplateUtils.activateUser(UserUtils.getUserIdFromAttributes(user.getAttributes()), session.getContext().getRealm().getName());
         }
     }
 
@@ -55,7 +55,7 @@ public class CustomEventListenerProvider implements EventListenerProvider {
         Optional<String> statusOptional = getUserModel(event).getAttributes().get(UserUtils.USER_STATUS_ATTRIBUTE).stream().findFirst();
         statusOptional.ifPresent(status -> {
             if (!(status.equals(UserStatus.INACTIVE.name()) || status.equals(UserStatus.NEW.name()))) {
-                Executors.newSingleThreadExecutor().execute(() -> RestTemplateUtils.setUserStatus(event.getUserId(), event.getError(), status));
+                Executors.newSingleThreadExecutor().execute(() -> RestTemplateUtils.setUserStatus(event.getUserId(), event.getError(), status, session.getContext().getRealm().getName()));
             }
         });
     }
